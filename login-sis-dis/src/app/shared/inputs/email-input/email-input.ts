@@ -15,8 +15,9 @@ import { Subscription } from 'rxjs';
 export class EmailInput implements OnInit {
   email = input.required<WritableSignal<string>>();
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  emailFormControl = new FormControl('');
   matcher = new MyErrorStateMatcher();
+  isValidationsOn = input<boolean>(true);
 
   private sub?: Subscription;
 
@@ -32,7 +33,25 @@ export class EmailInput implements OnInit {
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
   }
+
+  ngOnChanges(): void {
+    this.setupValidators();
+  }
+
+  private setupValidators(): void {
+    if (this.isValidationsOn()) {
+      this.emailFormControl.setValidators(
+        [Validators.required, Validators.email]
+      );
+    } else {
+      this.emailFormControl.clearValidators();
+    }
+    this.emailFormControl.updateValueAndValidity();
+  }
+
 }
+
+
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

@@ -5,10 +5,13 @@ import { AuthService } from '../../services/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthUtilsService } from '../../utils/decode/decode-jwt';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
-  imports: [EmailInput, PasswordInput, ReactiveFormsModule, FormsModule],
+  imports: [EmailInput, PasswordInput, ReactiveFormsModule, FormsModule, MatButtonModule, MatDividerModule, MatIconModule],
   standalone: true,
   templateUrl: './login.html',
   styleUrl: './login.scss'

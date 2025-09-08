@@ -1,1 +1,48 @@
-<p>dashboard-admin works!</p>
+  <div class="dashboard-container">
+    <div class="header-dashboard">
+      <h1>Panel de Administración</h1>
+
+    <div class="actions">
+      <button mat-raised-button color="accent" (click)="changePassword()">
+        Cambiar Contraseña
+      </button>
+
+      <button mat-raised-button color="warn" (click)="logout()">
+        Cerrar Sesión
+      </button>
+    </div>
+    </div>
+    <div class="table-users">
+
+    <h2>Gestión de Usuarios</h2>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-users">
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Usuario</th>
+        <td mat-cell *matCellDef="let element">{{element.username}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>Rol</th>
+        <td mat-cell *matCellDef="let element">{{element.role}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button color="primary" (click)="editRole(element)">
+            Cambiar Rol
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    </div>
+  </div>
