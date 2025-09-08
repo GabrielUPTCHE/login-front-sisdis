@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user-service';
+import { SnackBarService } from '../../services/snack-bar-service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,11 @@ import { UserService } from '../../services/user-service';
 export class Register {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+    private snackBar: SnackBarService) {
     this.registerForm = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
@@ -36,11 +41,11 @@ export class Register {
     if (this.registerForm.valid) {
       this.userService.registerUser(this.registerForm.value).subscribe({
         next: (response) => {
-          console.log('Registro exitoso', response);
           this.router.navigate(['/']);
+          this.snackBar.openSnackBar('Registro exitoso', 'Aceptar');
         },
         error: (error) => {
-          console.error('Error en el registro', error);
+          this.snackBar.openSnackBar(error.error.message, 'Aceptar');
         }
       });
     }

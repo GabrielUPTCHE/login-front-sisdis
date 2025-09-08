@@ -16,11 +16,11 @@ export class AuthService {
   private decodeUser = signal<decodeLoginResponse | null>(null);
 
   get token() {
-    return this._token();
+    return this._token() || sessionStorage.getItem('accessToken');
   }
 
-  login(email: string, password: string): Observable<decodeLoginResponse | null> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
+  login(identifier: string, password: string): Observable<decodeLoginResponse | null> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { identifier, password }).pipe(
       tap(response => {
         const decodeUser = jwtDecode<decodeLoginResponse>(response.data.accessToken);
         sessionStorage.setItem('accessToken', response.data.accessToken);

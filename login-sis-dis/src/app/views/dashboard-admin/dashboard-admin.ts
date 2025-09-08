@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthUtilsService } from '../../utils/decode/decode-jwt';
 import { Router } from '@angular/router';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { UserService } from '../../services/user-service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ChangeRoleDialog } from '../../components/change-role-dialog';
+import { SnackBarService } from '../../services/snack-bar-service';
 
 export interface User {
   id: number;
@@ -14,26 +17,27 @@ export interface User {
 @Component({
   selector: 'app-dashboard-admin',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule],
+  imports: [MatTableModule, MatButtonModule, MatDialogModule],
   templateUrl: './dashboard-admin.html',
   styleUrl: './dashboard-admin.scss'
 })
 export class DashboardAdmin {
+
   displayedColumns: string[] = ['id', 'username', 'role', 'actions'];
-  dataSource = new MatTableDataSource<User>([
-  ]);
+  dataSource = new MatTableDataSource<User>([]);
 
   constructor(
     private router: Router,
     private authUtils: AuthUtilsService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private dialog: MatDialog,
+    private snackBarService: SnackBarService
+  ) { }
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe({
       next: (users: any) => {
         this.dataSource.data = users.data;
-        console.log('Users fetched:', users);
       },
       error: (error) => {
         console.error('Error fetching users:', error);
@@ -46,8 +50,33 @@ export class DashboardAdmin {
     this.router.navigate(['/']);
   }
 
-  editRole(user: User): void {
-    alert(`Editar rol de ${user.username}`);
+  editRole(user: any) {
+    const dialogRef = this.dialog.open(ChangeRoleDialog, {
+      width: '400px',
+      data: { ...user }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.userService.changeUserRole(result.username, result.role).subscribe({
+          next: (response) => {
+            this.userService.getUsers().subscribe({
+              next: (users: any) => {
+                this.dataSource.data = users.data;
+                this.snackBarService.openSnackBar('Se actualizo el rol correctamente', 'Aceptar')
+              },
+              error: (error) => {
+                console.error('Error fetching users:', error);
+                this.snackBarService.openSnackBar('Ocurrio un error', 'Aceptar');
+              }
+            });
+          },
+          error: (error) => {
+            console.error('Error updating role:', error);
+          }
+        });
+      }
+    });
   }
 
   changePassword(): void {

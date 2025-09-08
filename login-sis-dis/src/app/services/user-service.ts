@@ -15,4 +15,8 @@ export class UserService {
     return this.httpClient.post(`${this.apiUrl}/register`, userData);
   }
 
+  changeUserRole(identifier: number, newRole: string) {
+    return this.httpClient.patch(`${this.apiUrl}/users/role`, { identifier, newRole});
+  }
+
 }
