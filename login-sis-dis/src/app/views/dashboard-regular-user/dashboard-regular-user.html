@@ -1,1 +1,22 @@
-<p>dashboard-regular-user works!</p>
+@if (isLoadingCode) {
+  <app-loading></app-loading>
+}@else {
+  <div class="dashboard-container">
+  <div class="header-dashboard">
+    <h1>Panel de Usuario regular</h1>
+
+    <div class="actions">
+      <button mat-raised-button color="accent" (click)="changePassword()">
+        Cambiar Contraseña
+      </button>
+
+      <button mat-raised-button color="warn" (click)="logout()">
+        Cerrar Sesión
+      </button>
+    </div>
+  </div>
+  <div class="table-users">
+  </div>
+</div>
+
+}

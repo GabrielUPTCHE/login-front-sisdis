@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 
 export interface DecodedToken {
@@ -6,6 +7,7 @@ export interface DecodedToken {
   role: string;
   iat: number;
   exp: number;
+  email: string;
 }
 
 @Injectable({
@@ -13,8 +15,10 @@ export interface DecodedToken {
 })
 export class AuthUtilsService {
 
-  private storageKey = '';
+  private storageKey = 'accessToken';
 
+
+  constructor(private router: Router) { }
   private getToken(): string | null {
     return sessionStorage.getItem(this.storageKey);
   }
@@ -30,22 +34,18 @@ export class AuthUtilsService {
     }
   }
 
-  isTokenExpired(): boolean {
-    const decoded = this.decodeToken();
-    if (!decoded) return true;
-    const now = Math.floor(Date.now() / 1000);
-    return decoded.exp < now;
-  }
-
-  validateSession(): boolean {
-    if (!this.getToken() || this.isTokenExpired()) {
-      this.clearSession();
-      return false;
-    }
-    return true;
-  }
 
   clearSession(): void {
     sessionStorage.removeItem(this.storageKey);
   }
+
+  returnToDashboard(): void {
+    const decoded = this.decodeToken();
+    if (decoded?.role === 'admin') {
+      this.router.navigate(['dashboard-admin']);
+    } else {
+      this.router.navigate(['dashboard-user']);
+    }
+  }
+
 }

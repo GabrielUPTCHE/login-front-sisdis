@@ -1,4 +1,7 @@
-  <div class="dashboard-container">
+@if (isLoadingCode) {
+  <app-loading></app-loading>
+}@else {
+    <div class="dashboard-container">
     <div class="header-dashboard">
       <h1>Panel de Administración</h1>
 
@@ -46,3 +49,5 @@
     </table>
     </div>
   </div>
+
+}

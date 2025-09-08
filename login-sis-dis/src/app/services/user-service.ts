@@ -19,4 +19,15 @@ export class UserService {
     return this.httpClient.patch(`${this.apiUrl}/users/role`, { identifier, newRole});
   }
 
+  requestResetPassword(email: string) {
+    return this.httpClient.post(`${this.apiUrl}/reset-password/request`, { email });
+  }
+
+  verifyResetCode(email: string, code: string) {
+    return this.httpClient.post(`${this.apiUrl}/reset-password/verify`, { email, code });
+  }
+
+  changePassword(email: string, code: string, newPassword: string) {
+    return this.httpClient.post(`${this.apiUrl}/reset-password/change`, { email, code , newPassword});
+  }
 }
