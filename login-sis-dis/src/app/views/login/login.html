@@ -1,1 +1,31 @@
-<p>login works!</p>
+<form class="example-form" (ngSubmit)="login()">
+  <section class="login-body">
+    <div class="login-form">
+      <div class="login-form-header">
+        <h1 class="login-title">Iniciar sesión</h1>
+        <p class="login-subtitle">Ingresa tus credenciales para acceder a tu cuenta</p>
+      </div>
+
+      <div class="login-form-inputs">
+        <div class="login-form-input">
+          <app-email-input [email]="email" [isValidationsOn]="false"></app-email-input>
+        </div>
+        <div class="login-form-input">
+          <app-password-input [password]="password" [isValidationsOn]="false"></app-password-input>
+        </div>
+      </div>
+
+      <div class="login-form-actions">
+        <button mat-flat-button color="primary" class="login-btn" type="submit"> Ingresar</button>
+      </div>
+      <div class="login-form-register">
+        <p>
+          ¿No tienes una cuenta?
+          <a routerLink="/register" class="register-link" (click)="$event.preventDefault()">Regístrate aquí</a>
+
+        </p>
+      </div>
+
+    </div>
+  </section>
+</form>

@@ -1,0 +1,11 @@
+<mat-form-field class="example-full-width">
+    <mat-label>Correo</mat-label>
+    <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" value="email()"  class="full-width"
+           placeholder="Ex. pat@example.com" maxlength="50">
+    @if(emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+      <mat-error>Porfavor ingresa un correo valido.</mat-error>
+    }
+    @if(emailFormControl.hasError('required')) {
+      <mat-error>El correo es <strong>requerido</strong></mat-error>
+    }
+  </mat-form-field>

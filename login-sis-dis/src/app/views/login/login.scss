@@ -1,0 +1,101 @@
+.example-form {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1976d2 0%, #42a5f5 100%);
+  font-family: 'Roboto', sans-serif;
+}
+
+.login-body {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: fadeInUp 0.5s ease;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.login-form-header {
+  text-align: center;
+
+  .login-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+    color: #1976d2;
+  }
+
+  .login-subtitle {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+    color: #555;
+  }
+}
+
+.login-form-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  .login-form-input {
+    width: 100%;
+
+    ::ng-deep .mat-mdc-form-field {
+      width: 100%;
+    }
+  }
+}
+
+.login-form-actions {
+  display: flex;
+  justify-content: center;
+
+  .login-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: none;
+  }
+}
+
+/* Animación */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-form-register {
+  text-align: center;
+  margin-top: 1rem;
+
+  .register-link {
+    color: #1976d2;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #125a9c;
+      text-decoration: underline;
+    }
+  }
+}
+
