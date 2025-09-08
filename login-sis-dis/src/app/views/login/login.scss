@@ -80,3 +80,22 @@
     transform: translateY(0);
   }
 }
+
+.login-form-register {
+  text-align: center;
+  margin-top: 1rem;
+
+  .register-link {
+    color: #1976d2;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #125a9c;
+      text-decoration: underline;
+    }
+  }
+}
+

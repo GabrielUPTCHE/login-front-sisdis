@@ -18,6 +18,14 @@
       <div class="login-form-actions">
         <button mat-flat-button color="primary" class="login-btn" type="submit"> Ingresar</button>
       </div>
+      <div class="login-form-register">
+        <p>
+          ¿No tienes una cuenta?
+          <a routerLink="/register" class="register-link" (click)="$event.preventDefault()">Regístrate aquí</a>
+
+        </p>
+      </div>
+
     </div>
   </section>
 </form>

@@ -13,5 +13,9 @@ export const routes: Routes = [
   {
     path: 'dashboard-user',
     loadComponent: () => import('./views/dashboard-regular-user/dashboard-regular-user').then(m => m.DashboardRegularUser)
+  },
+  {
+    path: 'register',
+    loadComponent: () => import('./views/register/register').then(m => m.Register)
   }
 ];
