@@ -24,7 +24,7 @@ export interface User {
 })
 export class DashboardAdmin {
 
-  displayedColumns: string[] = ['id', 'username', 'role', 'actions'];
+  displayedColumns: string[] = [ 'username', 'role', 'actions'];
   dataSource = new MatTableDataSource<User>([]);
   isLoadingCode = false;
 
