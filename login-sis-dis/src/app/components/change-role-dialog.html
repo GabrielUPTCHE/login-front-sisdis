@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Cambiar rol</h2>
+<mat-dialog-content>
+  <p>Selecciona el nuevo rol para <b>{{ data.username }}</b>:</p>
+  <mat-form-field>
+    <mat-label>Roles</mat-label>
+    <mat-select [(ngModel)]="selectedRole" style="width: 100%">
+    <mat-option *ngFor="let role of roles" [value]="role">
+      {{ role | titlecase }}
+    </mat-option>
+  </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton (click)="close()">Cerrar</button>
+  <button matButton (click)="save()">Guardar</button>
+</mat-dialog-actions>
