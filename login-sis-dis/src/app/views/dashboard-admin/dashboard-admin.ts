@@ -7,6 +7,7 @@ import { UserService } from '../../services/user-service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ChangeRoleDialog } from '../../components/change-role-dialog';
 import { SnackBarService } from '../../services/snack-bar-service';
+import { LoadingComponent } from '../../shared/loading/loading';
 
 export interface User {
   id: number;
@@ -17,7 +18,7 @@ export interface User {
 @Component({
   selector: 'app-dashboard-admin',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatDialogModule],
+  imports: [MatTableModule, MatButtonModule, MatDialogModule, LoadingComponent],
   templateUrl: './dashboard-admin.html',
   styleUrl: './dashboard-admin.scss'
 })
@@ -25,6 +26,7 @@ export class DashboardAdmin {
 
   displayedColumns: string[] = ['id', 'username', 'role', 'actions'];
   dataSource = new MatTableDataSource<User>([]);
+  isLoadingCode = false;
 
   constructor(
     private router: Router,
@@ -80,6 +82,19 @@ export class DashboardAdmin {
   }
 
   changePassword(): void {
-    alert('Funcionalidad de cambio de contraseña');
+    this.isLoadingCode = true;
+    this.userService.requestResetPassword(this.authUtils.decodeToken()?.email || '').subscribe(
+      {
+        next: (response) => {
+          this.isLoadingCode = false;
+          this.snackBarService.openSnackBar('Se envio un correo para restablecer la contraseña', 'Aceptar')
+          this.router.navigate(['/recovery-password']);
+        },
+        error: (error) => {
+          console.error('Error requesting password reset:', error);
+          this.snackBarService.openSnackBar('Ocurrio un error', 'Aceptar');
+        }
+      }
+    );
   }
 }

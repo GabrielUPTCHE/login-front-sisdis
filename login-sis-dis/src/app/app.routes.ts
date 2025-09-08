@@ -17,5 +17,13 @@ export const routes: Routes = [
   {
     path: 'register',
     loadComponent: () => import('./views/register/register').then(m => m.Register)
+  },
+  {
+    path: 'recovery-password',
+    loadComponent: () => import('./views/recovery-password/recovery-password').then(m => m.RecoveryPassword)
+  },
+  {
+    path: 'change-password',
+    loadComponent: () => import('./views/change-password/change-password').then(m => m.ChangePassword)
   }
 ];
