@@ -8,6 +8,7 @@ import { AuthUtilsService } from '../../utils/decode/decode-jwt';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { SnackBarService } from '../../services/snack-bar-service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class Login {
   email = signal('');
   password = signal('');
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private snackBar: SnackBarService) {
   }
 
   login(){
@@ -36,7 +37,7 @@ export class Login {
         }
       },
       error: (error) => {
-        console.error('Login failed:', error);
+        this.snackBar.openSnackBar(error.error.message, 'Aceptar');
       }
     });
   }
