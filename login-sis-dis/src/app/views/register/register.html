@@ -20,13 +20,14 @@
       </small>
     </div>
 
-    <!-- Password -->
     <div class="form-group">
       <label>Contraseña</label>
       <input type="password" formControlName="password" placeholder="********" />
+      <small *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        La contraseña debe tener al menos 8 caracteres.
+      </small>
     </div>
 
-    <!-- Confirm Password -->
     <div class="form-group">
       <label>Confirmar contraseña</label>
       <input type="password" formControlName="confirmPassword" placeholder="********" />
@@ -35,7 +36,6 @@
       </small>
     </div>
 
-    <!-- Botones -->
     <div class="form-actions">
       <button type="submit" [disabled]="registerForm.invalid" class="btn-save">Guardar</button>
       <button type="button" (click)="cancel()" class="btn-cancel">Salir</button>
